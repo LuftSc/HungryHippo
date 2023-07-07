@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Hippopotamus : MonoBehaviour
 {
+    // Передвижение бегемота по клавишам A D.
     [SerializeField] private float speed;
 
     private float moveInput;
