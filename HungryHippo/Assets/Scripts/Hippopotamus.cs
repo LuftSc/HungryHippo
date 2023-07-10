@@ -8,6 +8,8 @@ public class Hippopotamus : MonoBehaviour
     // Передвижение бегемота по клавишам A D.
     [SerializeField] private float speed;
 
+    //[SerializeField] private Rigidbody2D _rigidbody;
+
     private float moveInput;
     private Vector2 direction;
     private Rigidbody2D rb;
@@ -20,6 +22,16 @@ public class Hippopotamus : MonoBehaviour
     void Update()
     {
          direction.x = Input.GetAxisRaw("Horizontal");
+    }
+
+    public void OnLeftClick()
+    {
+        direction.x = -1;
+    }
+
+    public void OnRightClick()
+    {
+        direction.x = 1;
     }
 
     private void FixedUpdate()

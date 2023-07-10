@@ -325,7 +325,7 @@ TextureImporter:
         width: 61
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -333,6 +333,132 @@ TextureImporter:
       bones: []
       spriteID: 264102269e9eeb745b1aa7d13e474296
       internalID: -1666396615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_Back_WB
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 104
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 776a2a924e9820e4aaf6fad76b0ac102
+      internalID: 46535875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu_WB
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 437
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fcc2fe2a57c95a44a763da1f27b1a85
+      internalID: 515255236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_Play_WB
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 194
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 919b097e96b863e4ba73338b3026621e
+      internalID: 1925078696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hippo_WB
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 241
+        width: 77
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 568524abd9f55284091ce8513eeaf9d4
+      internalID: -52800497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Right_WB
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 419
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 496c5eb2894180144a1c10323a26aa47
+      internalID: 399594379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LEft_WB
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 313
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e56b84c9852ca8c44bce6e2bb4813035
+      internalID: 1687438913
       vertices: []
       indices: 
       edges: []
@@ -349,7 +475,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Heart_Big_WB: -73052109
+      Hippo_WB: -52800497
       Dice_1_WB: -552110838
+      Menu_WB: 515255236
+      Button_Back_WB: 46535875
+      LEft_WB: 1687438913
       Watermellow_WB: -1513049591
       Dice_2_WB: -267186300
       Count_WB_Back: -1666396615
@@ -358,6 +488,8 @@ TextureImporter:
       Dice_6_WB: 2086303639
       Dice_3_WB: 1744018222
       Heart_Small_WB: -411478450
+      Button_Play_WB: 1925078696
+      Right_WB: 399594379
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,12 @@ public class DestroyTrigger : MonoBehaviour
     [SerializeField] private Image Heart_1;
     [SerializeField] private Image Heart_2;
     [SerializeField] private Image Heart_3;
+
+    [Header("Ссылка на меню, которое будет\nпоказано при проигрыше")]
+    [SerializeField] private GameObject GameOverMenu;
+
+    [Header("Ссылка на текст показа счёта\nв Game Over окне")] 
+    [SerializeField] private TextMeshProUGUI ResultCount;
 
     private Image[] Hearts;
     private int _heartsIndex = 0;
@@ -33,9 +40,20 @@ public class DestroyTrigger : MonoBehaviour
         else
         {
             Hearts[_heartsIndex].enabled = false;
-            Debug.Log("GAME OVER!");
+            // Через полсекунды оставливаем время
+            Invoke("StopTime", 0.5f);
+            // Записываем количество собранных очков в результат
+            ResultCount.text = DevourTrigger.count.ToString();
+            // Показываем окошко Game Over
+            GameOverMenu.SetActive(true);
         }
         // Удаляем упавший арбуз
         Destroy(col.gameObject);
     }
+    void StopTime()
+    {
+        // Останавливаем время игры(ставим на паузу)
+        Time.timeScale = 0f;
+    }
+    
 }

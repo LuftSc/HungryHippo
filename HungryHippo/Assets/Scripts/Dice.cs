@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Security.Cryptography;
-using TreeEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = System.Random;
 
 public class Dice : MonoBehaviour
@@ -17,16 +18,18 @@ public class Dice : MonoBehaviour
 
     [Header("Ссылка на префаб арбуза")]
     [SerializeField] private GameObject Watermellow;
+
     
     private Sprite[] Dices;
     private Random random;
     private int randomInt;
-    private int localCountWatermelow = 0;
+    public static int localCountWatermelow = 0;
 
     private SpriteRenderer _spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        
         Dices = new[] { Dice_1, Dice_2, Dice_3, Dice_4, Dice_5, Dice_6 };
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         random = new Random();
@@ -51,6 +54,19 @@ public class Dice : MonoBehaviour
         return (float)randDouble;
     }
 
+    // Получаем Рандомную координату в диапазоне (-board; board);
+    public float GetRandomCoordinateX(uint board)
+    {
+        var rDouble = 0.0;
+        for (int i = 0; i < board; i++)
+        {
+            rDouble += random.NextDouble();
+        }
+        // Полуаем знак (плюс(0) иили минус(1))
+        var sign = random.Next(0, 2);
+        return (float)(sign == 0 ? rDouble : -rDouble);
+    }
+
     //точность до милисекунды (параметры для таймера)
     private float nextActionTime = 0.0f;
     // Период совершаемых таймером действий (в секундах)
@@ -65,7 +81,7 @@ public class Dice : MonoBehaviour
             {
                 nextActionTime += period;
                 // Получаем позицию арбуза по оси Х. По оси У она константная и равна высоте кубика
-                var positionX = GetRandomCoordinateX(-2, 2, 0.5);
+                var positionX = GetRandomCoordinateX(2);
         
                 // Создаём арбуз
                 Instantiate(Watermellow, new Vector3(positionX,3), Quaternion.identity);

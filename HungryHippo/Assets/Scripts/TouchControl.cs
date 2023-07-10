@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,29 +7,36 @@ using UnityEngine.EventSystems;
 
 public class TouchControl : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
+    [Header("Ссылка на трансформ бегемота")]
     [SerializeField] private Transform Hippopotam;
+
+    [Header("Ссылка на трансформ тачера")] 
+    [SerializeField] private Transform Toucher;
     // 10,5 %
-    [SerializeField] private int PixelsForHippoY;
+    //[Header("Значение (в процентах 0.0 - 1.0)\nвертикальной позиции бегемота")]
+    //[SerializeField] private float PixelsForHippoPercentsY;
+
+    private int HippoPositionY;
+    private int ToucherPositionY;
+
+    private void Awake()
+    {
+        HippoPositionY = (int)(0.18 * Screen.height);
+        ToucherPositionY = (int)(0.06 * Screen.height);
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        /*
-        if (Mathf.Abs(eventData.delta.x) > Mathf.Abs(eventData.delta.y))
-        {
-            if (eventData.delta.x > 0)
-            {
-                Hippopotam.position += Vector3.right;
-            }
-            else
-            {
-                Hippopotam.position += Vector3.left;
-            }
-        } */
     }
-    
     public void OnDrag(PointerEventData eventData)
     {
-        Hippopotam.position =
-            Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, PixelsForHippoY, 1));
+        // Рабочий вариант
+        /*Hippopotam.position =
+            Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, HippoPositionY, 1)); */
+        
+        // Моя импровизация
+        var vector = new Vector3(Input.mousePosition.x, ToucherPositionY, 1);
+        Toucher.position = Camera.main.ScreenToWorldPoint(vector);
+        Hippopotam.position = new Vector3(Toucher.position.x, Hippopotam.position.y, 1);
     }
 }
