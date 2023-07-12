@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Watermellow
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Player
   - 
   - 
-  - 
+  - Watermellow
   - Background
   - 
   - 
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2863795005
+    locked: 0
+  - name: Watermellow
+    uniqueID: 2559737567
     locked: 0

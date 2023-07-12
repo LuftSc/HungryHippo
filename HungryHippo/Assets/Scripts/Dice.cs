@@ -19,7 +19,12 @@ public class Dice : MonoBehaviour
     [Header("Ссылка на префаб арбуза")]
     [SerializeField] private GameObject Watermellow;
 
-    
+    [Header("Разброс арбузов в радиусе: ")]
+    [SerializeField] private int LeftBoard;
+    [SerializeField] private int RightBoard;
+
+
+    private float _positionX;
     private Sprite[] Dices;
     private Random random;
     private int randomInt;
@@ -29,6 +34,8 @@ public class Dice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Позиция по иксу для спавна в этой точке арбузов
+        _positionX = gameObject.transform.position.x;
         
         Dices = new[] { Dice_1, Dice_2, Dice_3, Dice_4, Dice_5, Dice_6 };
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -69,8 +76,8 @@ public class Dice : MonoBehaviour
 
     //точность до милисекунды (параметры для таймера)
     private float nextActionTime = 0.0f;
-    // Период совершаемых таймером действий (в секундах)
-    private float period = 0.5f;
+    // Период совершаемых таймером действий (в секундах) (0.5f) (timer 3sec)
+    private float period = 1.0f;
     // Флаг для начала респауна арбузов
     public static bool ReSpawnWatermellow;
     void Update () {
@@ -81,10 +88,20 @@ public class Dice : MonoBehaviour
             {
                 nextActionTime += period;
                 // Получаем позицию арбуза по оси Х. По оси У она константная и равна высоте кубика
-                var positionX = GetRandomCoordinateX(2);
-        
+                //var positionX = GetRandomCoordinateX(2); Было по игреку было 3.
+                // var positionX = 0.9f; // По умолчанию 0
                 // Создаём арбуз
-                Instantiate(Watermellow, new Vector3(positionX,3), Quaternion.identity);
+                var watermellow = Instantiate(Watermellow, new Vector3(_positionX,0), Quaternion.identity);
+                var rb = watermellow.GetComponent<Rigidbody2D>();
+                // Генерируем дробное число в пределах от
+                // -25/100 до 25/100. (центр)
+                // -37/100 do 14/100 (право)
+                // -14/100 do 37/100 (лево)
+                var randDirection = (float)random.Next(LeftBoard, RightBoard);
+                var resDirection = randDirection == 0 ? 0f : randDirection / 100;
+                // Выстреливаем арбузом
+                rb.AddForce(new Vector2(resDirection,2) * 200);
+                
                 localCountWatermelow++;
             }
             // Этот иф срабатывает когда завершается действие таймера

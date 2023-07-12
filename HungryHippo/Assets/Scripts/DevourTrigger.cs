@@ -12,8 +12,12 @@ public class DevourTrigger : MonoBehaviour
     public static int count = 0;
     private void OnTriggerEnter2D(Collider2D col)
     {
-        count++;
-        _counterWatermellows.text = count.ToString();
-        Destroy(col.gameObject);
+        if (col.gameObject.CompareTag("Watermellow"))
+        {
+            count++;
+            _counterWatermellows.text = count.ToString();
+            Destroy(col.gameObject);
+        }
+        
     }
 }
