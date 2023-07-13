@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Watermellow
+  - Bomb
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - 
   - Watermellow
   - Background
-  - 
-  - 
+  - Bomb
+  - Heart
   - 
   - 
   - 
@@ -50,4 +52,10 @@ TagManager:
     locked: 0
   - name: Watermellow
     uniqueID: 2559737567
+    locked: 0
+  - name: Bomb
+    uniqueID: 3329695749
+    locked: 0
+  - name: Heart
+    uniqueID: 2117266679
     locked: 0

@@ -10,6 +10,8 @@ public class TimerLine : MonoBehaviour
     [SerializeField] private float time;
     [Header("Ссылка на картинкy таймера")]
     [SerializeField] private Image timerImage;
+    [Header("Ссылка на игральный кубик")]
+    [SerializeField] private Dice _dice;
 
     public static bool ReRunTimer = false;
     private float _timeLeft = 0f;
@@ -26,7 +28,7 @@ public class TimerLine : MonoBehaviour
         }
         // Когда полоска подошла к концу, даём сигнал,
         // что пора запускать кубик и спавн арбузов ещё раз
-        Dice.ReSpawnWatermellow = true;
+        _dice.ReSpawnWatermellow = true;
         ReRunTimer = true;
         
     }

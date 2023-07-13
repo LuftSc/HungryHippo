@@ -36,7 +36,12 @@ public class TouchControl : MonoBehaviour, IBeginDragHandler, IDragHandler
         
         // Моя импровизация
         var vector = new Vector3(Input.mousePosition.x, ToucherPositionY, 1);
-        Toucher.position = Camera.main.ScreenToWorldPoint(vector);
-        Hippopotam.position = new Vector3(Toucher.position.x, Hippopotam.position.y, 1);
+        var toucherPosition = Camera.main.ScreenToWorldPoint(vector);
+        //Debug.Log(vector.x);
+        if (toucherPosition.x > -1.8f && toucherPosition.x < 1.8f)
+        {
+            Toucher.position = toucherPosition;
+            Hippopotam.position = new Vector3(Toucher.position.x, Hippopotam.position.y, 1);
+        }
     }
 }
