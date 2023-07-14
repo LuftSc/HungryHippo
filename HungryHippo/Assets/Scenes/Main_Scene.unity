@@ -2254,6 +2254,7 @@ GameObject:
   - component: {fileID: 625230956}
   - component: {fileID: 625230961}
   - component: {fileID: 625230962}
+  - component: {fileID: 625230963}
   m_Layer: 6
   m_Name: Bergamot
   m_TagString: Untagged
@@ -2279,6 +2280,8 @@ MonoBehaviour:
   HeartSound: {fileID: 231998229}
   WatermelowSound: {fileID: 1542186301}
   Bang: {fileID: 2127842864}
+  _boxCollider2D: {fileID: 625230957}
+  _capsuleCollider2D: {fileID: 625230963}
   _animator: {fileID: 625230962}
 --- !u!61 &625230957
 BoxCollider2D:
@@ -2293,7 +2296,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000059604645, y: 0.5124253}
+  m_Offset: {x: 0.000000059604645, y: 0.58215535}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2304,7 +2307,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.43441284, y: 0.39514947}
+  m_Size: {x: 0.43441284, y: 0.25568938}
   m_EdgeRadius: 0
 --- !u!50 &625230958
 Rigidbody2D:
@@ -2511,6 +2514,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &625230963
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625230955}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.19269872}
+  m_Size: {x: 0.88, y: 0.98486686}
+  m_Direction: 0
 --- !u!1 &775766688
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,6 +3796,8 @@ MonoBehaviour:
   HeartSound: {fileID: 0}
   WatermelowSound: {fileID: 0}
   Bang: {fileID: 0}
+  _boxCollider2D: {fileID: 0}
+  _capsuleCollider2D: {fileID: 0}
   _animator: {fileID: 0}
 --- !u!61 &1346571571
 BoxCollider2D:
@@ -6710,7 +6731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127842861}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.6, z: -1}
+  m_LocalPosition: {x: -0.004, y: -0.043, z: -1}
   m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7504,7 +7525,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.4
+      value: 1.5
       mode: 0
       spread: 0
       speed:
