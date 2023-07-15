@@ -32,8 +32,8 @@ public class PopupMenu : MonoBehaviour
     public void OnContinueClick()
     {
         MenuPopup.SetActive(false);
-        Time.timeScale = 0.3f;
-        Invoke("StartTime", 0.1f);
+        Time.timeScale = 1f;
+        //Invoke("StartTime", 0.1f);
         
         // Проигрываем музыку
         ContinueSound.Play();

@@ -28,6 +28,12 @@ public class Dice : MonoBehaviour
     [Header("Ссылка на префаб сердечка")] 
     [SerializeField] private GameObject Heart;
 
+    [Header("Ссылка на префаб кокоса")] 
+    [SerializeField] private GameObject Cocount;
+
+    [Header("Ссылка на префаб капусты")] 
+    [SerializeField] private GameObject Cabbage;
+
     [Header("Разброс арбузов в радиусе: ")]
     [SerializeField] private int LeftBoard;
     [SerializeField] private int RightBoard;
@@ -41,6 +47,8 @@ public class Dice : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private GameObject Bullet;
     private AudioSource _audioSource;
+    private Animator _animator;
+    
     public static bool isFirst = true;
     // Start is called before the first frame update
     void Start()
@@ -58,9 +66,13 @@ public class Dice : MonoBehaviour
         randomInt = isFirst ? 0: random.Next(0, 5);
         isFirst = !isFirst;
         
+        _animator = gameObject.GetComponent<Animator>();
+        // Проигрываем анимацию вращения
+        _animator.SetBool("goRotate", true);
+        Invoke("StopRotate", 0.3f);
+        
         // Присваиваем новое изображение кубика
         _spriteRenderer.sprite = Dices[randomInt];
-
         _audioSource = gameObject.GetComponent<AudioSource>();
     }
     //точность до милисекунды (параметры для таймера)
@@ -69,9 +81,6 @@ public class Dice : MonoBehaviour
     private float period = 0.5f;
     // Флаг для начала респауна арбузов
     public bool ReSpawnWatermellow = false;
-    void Update () {
-        
-    }
     private void FixedUpdate()
     {
         if (Time.time > nextActionTime) {
@@ -82,6 +91,10 @@ public class Dice : MonoBehaviour
                 nextActionTime += period;
                 // С шансом 30% создаём бомбу
                 if (random.Next(0, 101) <= 30) Bullet = Bomb;
+                // С шансом 10% создаём кокос
+                if (random.Next(0, 101) <= 10) Bullet = Cocount;
+                // С шансом 6% создаём капусту
+                if (random.Next(0, 101) <= 6) Bullet = Cabbage;
                 // С шансом 5% создаём сердечко
                 if (random.Next(0, 101) <= 5) Bullet = Heart;
                 // Создаём Ядро( либо арбуз, либо бомбу, либо сердечко)
@@ -114,9 +127,16 @@ public class Dice : MonoBehaviour
                 period = 0.5f;
                 // Обновляем число на кубике
                 randomInt = random.Next(0, 6);
+                _animator.SetBool("goRotate", true);
+                Invoke("StopRotate", 0.4f);
                 _spriteRenderer.sprite = Dices[randomInt];
             }
             
         }
+    }
+
+    public void StopRotate()
+    {
+        _animator.SetBool("goRotate", false);
     }
 }

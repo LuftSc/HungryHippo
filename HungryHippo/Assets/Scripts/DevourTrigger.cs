@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DevourTrigger : MonoBehaviour
 {
@@ -17,8 +18,14 @@ public class DevourTrigger : MonoBehaviour
     [SerializeField] private AudioSource HeartSound;
     [Header("Звук съеденного арбуза")] 
     [SerializeField] private AudioSource WatermelowSound;
+    [Header("Звук съеденной капусты")]
+    [SerializeField] private AudioSource CabbageSound;
+    [Header("Звук отскока кокоса")]
+    [SerializeField] private AudioSource CocountSound;
     [Header("Ссылка на взрыв")] [SerializeField]
     private ParticleSystem Bang;
+    [Header("Ссылка на изображение\nраскрытого кокоса")] 
+    [SerializeField] private Sprite openedCocount;
     [Header("Ссылки на коллайдеры бегемота")]
     [SerializeField] private BoxCollider2D _boxCollider2D;
     [SerializeField] private CapsuleCollider2D _capsuleCollider2D;
@@ -46,24 +53,13 @@ public class DevourTrigger : MonoBehaviour
             // Если бегемот съел арбуз
             if (col.gameObject.CompareTag("Watermellow"))
             {
-                // Звук съеденного арбуза
-                WatermelowSound.Play();
-                // Для укорочения записис
-                var localScale = gameObject.transform.localScale;
-                // Если размер бегемота меньше максимального
-                if (localScale.x <= 2.6f)
-                {
-                    // За каждый съеденный арбуз прибавляем 0.01 к размеру
-                    gameObject.transform.localScale = new Vector3(localScale.x + 0.01f,localScale.y + 0.01f);
-                }
-            
+                SetHippoSize(WatermelowSound, 0.005f);
                 count++;
                 _counterWatermellows.text = count.ToString();
                 Destroy(col.gameObject);
             }
-            
             // Если бегемот съел бомбу
-                    if (col.gameObject.CompareTag("Bomb"))
+            if (col.gameObject.CompareTag("Bomb"))
                     {
                         Bang.gameObject.SetActive(true);
                         Invoke("StopBang", 0.5f);
@@ -89,8 +85,8 @@ public class DevourTrigger : MonoBehaviour
                             GameOverMenu.SetActive(true);
                         }
                     }
-            
-                    if (col.gameObject.CompareTag("Heart"))
+            // Если бегемот съел сердечко
+            if (col.gameObject.CompareTag("Heart"))
                     {
                         // Проигрываем звук подбора сердечка
                         HeartSound.Play();
@@ -109,9 +105,47 @@ public class DevourTrigger : MonoBehaviour
                         
                         Destroy(col.gameObject);
                     }
-                    
+            // Если бегемот поймал кокос
+            if (col.gameObject.CompareTag("Cocount"))
+            {
+                // Если бегемот поймал нерасколотый кокос
+                if (!col.gameObject.GetComponent<TrailRenderer>().enabled)
+                {
+                    // Проигрываем звук отскока кокоса
+                    CocountSound.Play();
+                    // Создаём новый кокос (расколотый)
+                    var newCocount = Instantiate(col.gameObject,
+                        new Vector3(col.gameObject.transform.position.x, col.gameObject.transform.position.y),
+                        Quaternion.identity);
+                    // Добавляем ему молочный след
+                    var trail = newCocount.GetComponent<TrailRenderer>();
+                    trail.enabled = true;
+                    // Устанавливаем картинку раскрытого кокоса
+                    var sr = newCocount.gameObject.GetComponent<SpriteRenderer>();
+                    sr.sprite = openedCocount;
+                    // Подбрасываем вверх
+                    var rb = newCocount.gameObject.GetComponent<Rigidbody2D>();
+                    rb.AddForce(new Vector2(0,2) * 250);
+                }
+                // Если бегемот съел уже расколотый кокос
+                else
+                {
+                    SetHippoSize(WatermelowSound, 0.025f);
+                    count += 5;
+                    _counterWatermellows.text = count.ToString();
+                    Destroy(col.gameObject);
+                }
+            }
+            // Если бегемот поймал капусту
+            if (col.gameObject.CompareTag("Cabbage"))
+            {
+                SetHippoSize(CabbageSound, -0.1f);
+                count += 3;
+                _counterWatermellows.text = count.ToString();
+                Destroy(col.gameObject);
+            }
         }
-
+        
         // Если бегемот поймал что-то пузом
         if (col.IsTouching(_capsuleCollider2D))
         {
@@ -142,6 +176,27 @@ public class DevourTrigger : MonoBehaviour
                     GameOverMenu.SetActive(true);
                 }
             }
+
+            
+        }
+    }
+
+    // Метод для увеличения размера бегемота,
+    // sound - звук при поедании предмета
+    // scaleIncrement - на сколько увеличивать размер
+    private void SetHippoSize(AudioSource sound, float scaleIncrement)
+    {
+        // Звук съеденного предмета
+        sound.Play();
+        // Для укорочения записи
+        var localScale = gameObject.transform.localScale;
+        // Чтобы бегемот не уменьшился меньше изначального размера
+        if (scaleIncrement < 0 && localScale.x + scaleIncrement < 1f) return;
+        // Если размер бегемота меньше максимального
+        if (localScale.x <= 2.6f)
+        {
+            // За каждый съеденный предмет прибавляем scaleIncrement к размеру
+            gameObject.transform.localScale = new Vector3(localScale.x + scaleIncrement,localScale.y + scaleIncrement);
         }
     }
 
