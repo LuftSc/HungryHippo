@@ -18,6 +18,9 @@ public class DestroyTrigger : MonoBehaviour
     [Header("Ссылка на текст показа счёта\nв Game Over окне")] 
     [SerializeField] private TextMeshProUGUI ResultCount;
 
+    [Header("Ссылка на панельку с отображаемыми очками")] 
+    [SerializeField] private GameObject VisualCount;
+
     public static Image[] Hearts;
     public static int _heartsIndex = 0;
 
@@ -45,8 +48,6 @@ public class DestroyTrigger : MonoBehaviour
             // Если арбуз был не пойман и количество жизней > 1
             if (_heartsIndex < Hearts.Length - 1)
             {
-                
-                
                 Hearts[_heartsIndex].enabled = false;
                 _heartsIndex++;
             }
@@ -61,10 +62,9 @@ public class DestroyTrigger : MonoBehaviour
                 ResultCount.text = DevourTrigger.count.ToString();
                 // Показываем окошко Game Over
                 GameOverMenu.SetActive(true);
-                
+                VisualCount.SetActive(false);
             }
         }
-        
         // Удаляем упавший арбуз
         Destroy(col.gameObject);
     }
@@ -78,5 +78,4 @@ public class DestroyTrigger : MonoBehaviour
         // Останавливаем время игры(ставим на паузу)
         Time.timeScale = 0f;
     }
-    
 }

@@ -7,8 +7,10 @@ using UnityEngine.UIElements;
 
 public class DevourTrigger : MonoBehaviour
 {
-    [Header("Ссылка на строку со счётом очков")]
-    [SerializeField] private TextMeshProUGUI _counterWatermellows;
+    //[Header("Ссылка на строку со счётом очков")]
+    //[SerializeField] private TextMeshProUGUI _counterWatermellows;
+    [Header("Ссылка на панельку с отображаемыми очками")] 
+    [SerializeField] private GameObject VisualCount;
 
     [Header("Ссылка на поле, в котором будет\nпоказано кол-во очков после проигрыша")]
     [SerializeField] private TextMeshProUGUI ResultCount;
@@ -35,13 +37,15 @@ public class DevourTrigger : MonoBehaviour
     
     private AudioSource _audioGameOver;
     private AudioSource _audioBomb;
-    
+    private TextMeshProUGUI _counterWatermellows;
     public static int count = 0;
 
     private void Awake()
     {
         _audioGameOver = GameOverMenu.GetComponent<AudioSource>();
         _audioBomb = gameObject.GetComponent<AudioSource>();
+        _counterWatermellows = VisualCount.transform.Find("Count").gameObject.GetComponent<TextMeshProUGUI>();
+        VisualCount.SetActive(true);
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -83,6 +87,7 @@ public class DevourTrigger : MonoBehaviour
                             ResultCount.text = count.ToString();
                             // Показываем окошко Game Over
                             GameOverMenu.SetActive(true);
+                            VisualCount.SetActive(false);
                         }
                     }
             // Если бегемот съел сердечко
@@ -176,8 +181,6 @@ public class DevourTrigger : MonoBehaviour
                     GameOverMenu.SetActive(true);
                 }
             }
-
-            
         }
     }
 
